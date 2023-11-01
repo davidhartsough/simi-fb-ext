@@ -1,16 +1,22 @@
-function deleteAllDumbDivs() {
-  document
-    .querySelectorAll(`div[data-0="0"][data-1="1"][data-2="2"]`)
-    .forEach((element) => element.remove());
+function addLink() {
+  const feedContainer = document.querySelector("h3 + #feedContainer");
+  if (feedContainer && !document.getElementById("good-feed-link")) {
+    const para = document.createElement("p");
+    para.style.margin = "4px 16px";
+    para.style.textAlign = "center";
+    para.id = "good-feed-link";
+    para.innerHTML = `<a href="/?filter=friends&sk=h_chr" style="color:#fff;font-size:32px;">GO TO FEED</a>`;
+    feedContainer.parentElement.appendChild(para);
+  }
 }
+
 function handlePost(post) {
   const h3 = post.getElementsByTagName("h3").item(0);
   if (h3 && h3.textContent.endsWith(" is interested.")) {
-    console.log("SEE YA");
     post.style.display = "none";
     post.setAttribute("data-simi-fb", "handled");
   }
-  //
+
   const linkThing = post.querySelector(`span>a[href="#"][role="link"]`);
   if (linkThing) {
     let isAllSpans = true;
@@ -20,9 +26,9 @@ function handlePost(post) {
         isAllSpans = false;
       }
     }
-    //
+
     post.setAttribute("data-simi-fb", "handled");
-    //
+
     if (isAllSpans && post.textContent.includes("· Shared with Public")) {
       const parentThing = linkThing.parentElement.parentElement.parentElement;
       const postPrivacyIcon = parentThing.querySelector("span>span>span>svg");
@@ -33,7 +39,6 @@ function handlePost(post) {
       ) {
         return;
       } else {
-        console.log("GOODBYE");
         const h3 = post.getElementsByTagName("h3").item(0);
         if (h3 && h3.textContent.endsWith("Verified account")) {
           post.style.display = "none";
@@ -47,12 +52,13 @@ function handlePost(post) {
     }
   }
 }
+
 function simiFB() {
   if (window.location.href === "https://www.facebook.com/") {
-    window.location.href = "https://www.facebook.com/?filter=friends&sk=h_chr";
+    addLink();
+    return;
   }
   if (window.location.search.startsWith("?filter=")) {
-    deleteAllDumbDivs();
     const h2s = document.getElementsByTagName("h2");
     const h2 = h2s.item(0);
     if (h2s.length === 1 && h2 && h2.innerText === "News Feed posts") {
@@ -65,4 +71,4 @@ function simiFB() {
     }
   }
 }
-setInterval(simiFB, 888);
+setInterval(simiFB, 444);
