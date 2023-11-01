@@ -1,0 +1,5 @@
+a[aria-label="Video"][href="/watch/?ref=tab"][role="link"],
+a[aria-label="Gaming"][href="/gaming/play/?store_visit_source=gaming_tab"][role="link"],
+div[data-0="0"][data-1="1"][data-2="2"] {
+  display: none;
+}
